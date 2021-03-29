@@ -1,7 +1,5 @@
 package com.aluguelcarro.aluguel.apliacao;
 
-import com.aluguelcarro.aluguel.dominio.Carro;
-import com.aluguelcarro.aluguel.dominio.Cliente;
 import com.aluguelcarro.aluguel.dominio.builder.CarroBuilder;
 import com.aluguelcarro.aluguel.dominio.builder.ClienteBuilder;
 import com.aluguelcarro.aluguel.dominio.repositorios.AluguelRepositorio;
@@ -10,13 +8,12 @@ import com.aluguelcarro.aluguel.dominio.repositorios.ClienteRepositorio;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 

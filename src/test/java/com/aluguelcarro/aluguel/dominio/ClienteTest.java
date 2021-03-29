@@ -1,11 +1,13 @@
 package com.aluguelcarro.aluguel.dominio;
 
 import com.aluguelcarro.aluguel.comun.dominio.ExcecaoDeDominio;
+import com.aluguelcarro.aluguel.dominio.builder.ClienteBuilder;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ClienteTest {
 
@@ -19,7 +21,7 @@ class ClienteTest {
         faker = new Faker();
         nomeCompleto = faker.witcher().character();
         email = "email@email.com";
-        cpf = faker.number().digits(11);
+        cpf = "25722444030";
     }
 
     @Test
@@ -75,6 +77,28 @@ class ClienteTest {
         });
 
         assertEquals("Não é possível criar um cliente com cpf inválido.", excecaoDeDominio.getMessage());
+    }
+
+    @Test
+    void deve_ser_possivel_informar_um_id() {
+        Long id = 1L;
+        Cliente cliente = new ClienteBuilder().criar();
+
+        cliente.informarId(id);
+
+        assertEquals(id, cliente.getId());
+    }
+
+    @Test
+    void nao_deve_ser_possivel_informar_um_id_nulo() {
+        Long id = null;
+        Cliente cliente = new ClienteBuilder().criar();
+
+        ExcecaoDeDominio excecaoDeDominio = assertThrows(ExcecaoDeDominio.class, () -> {
+            cliente.informarId(id);
+        });
+
+        assertEquals("Não é possível informar um id vazio.", excecaoDeDominio.getMessage());
     }
 
 }

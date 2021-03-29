@@ -49,4 +49,9 @@ public class Cliente {
             ExcecaoDeDominio.quandoVerdadeiro(true, "Não é possível criar um cliente com cpf inválido.");
         }
     }
+
+    public void informarId(Long id) {
+        ExcecaoDeDominio.quandoNulo(id, "Não é possível informar um id vazio.");
+        this.id = id;
+    }
 }
