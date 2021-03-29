@@ -59,11 +59,16 @@ public class ManipuladorCliente {
 
         clienteRepositorio.delete(clienteOptional.get());
 
+        Optional<Cliente> clienteEncontrado = clienteRepositorio.findById(clienteDto.id);
+
+        if(clienteEncontrado.isPresent()){
+            return new RespostaManipuladorCliente("Não foi possível deletar o cliente selecionado.");
+        }
+
         return new RespostaManipuladorCliente("Cliente deletado com sucesso!");
     }
 
     public List<Cliente> buscarTodosOsclientes() {
-
         return clienteRepositorio.findAll();
     }
 }

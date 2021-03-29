@@ -122,12 +122,26 @@ public class ManipuladorClienteTest {
     @Test
     void deve_retornar_mensagem_de_sucesso_quando_conseguir_encontrar_um_cliente_para_deletar() {
         ClienteDto clienteDto = new ClienteDtoBuilder().criar();
-        when(clienteRepositorio.findById(clienteDto.id)).thenReturn(Optional.ofNullable(new ClienteBuilder().comId(1L).criarComId()));
+        when(clienteRepositorio.findById(clienteDto.id)).thenReturn(Optional.ofNullable(new ClienteBuilder().comId(1L).criarComId()),
+                Optional.empty());
 
         RespostaManipuladorCliente respostaManipuladorCliente =
                 manipuladorCliente.deletar(clienteDto);
 
         assertEquals("Cliente deletado com sucesso!", respostaManipuladorCliente.mensagemDeResposta);
+    }
+
+    @Test
+    void deve_retornar_mensagem_de_erro_quando_nao_conseguir_deletar_um_cliente() {
+        ClienteDto clienteDto = new ClienteDtoBuilder().criar();
+        when(clienteRepositorio.findById(clienteDto.id))
+                .thenReturn(Optional.ofNullable(new ClienteBuilder().comId(1L).criarComId()),
+                        Optional.ofNullable(new ClienteBuilder().comId(1L).criarComId()));
+
+        RespostaManipuladorCliente respostaManipuladorCliente =
+                manipuladorCliente.deletar(clienteDto);
+
+        assertEquals("Não foi possível deletar o cliente selecionado.", respostaManipuladorCliente.mensagemDeResposta);
     }
 
 }
