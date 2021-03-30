@@ -1,5 +1,7 @@
 package com.aluguelcarro.aluguel.apliacao;
 
+import com.aluguelcarro.aluguel.apliacao.dtos.AlugarDto;
+import com.aluguelcarro.aluguel.apliacao.dtos.RespostaRealizaAluguelDto;
 import com.aluguelcarro.aluguel.dominio.builder.CarroBuilder;
 import com.aluguelcarro.aluguel.dominio.builder.ClienteBuilder;
 import com.aluguelcarro.aluguel.dominio.repositorios.AluguelRepositorio;

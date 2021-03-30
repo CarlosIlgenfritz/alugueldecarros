@@ -1,6 +1,6 @@
 package com.aluguelcarro.aluguel.dominio.builder;
 
-import com.aluguelcarro.aluguel.apliacao.ClienteDto;
+import com.aluguelcarro.aluguel.apliacao.dtos.ClienteDto;
 import com.aluguelcarro.aluguel.dominio.Cliente;
 
 public class ClienteDtoBuilder {

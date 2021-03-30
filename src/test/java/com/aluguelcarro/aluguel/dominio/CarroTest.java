@@ -1,6 +1,7 @@
 package com.aluguelcarro.aluguel.dominio;
 
 import com.aluguelcarro.aluguel.comun.dominio.ExcecaoDeDominio;
+import com.aluguelcarro.aluguel.dominio.builder.CarroBuilder;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -90,5 +91,27 @@ class CarroTest {
         });
 
         assertEquals("Não é possível criar um carro com valor da diária menor ou igual a zero.", excecaoDeDominio.getMessage());
+    }
+
+    @Test
+    void deve_ser_possivel_informar_id(){
+        Long id = 1L;
+        Carro carro = new CarroBuilder().criar();
+
+        carro.informarId(id);
+
+        assertEquals(id, carro.getId());
+    }
+
+    @Test
+    void nao_deve_ser_possivel_informar_id_nulo(){
+        Long id = null;
+        Carro carro = new CarroBuilder().criar();
+
+        ExcecaoDeDominio excecaoDeDominio = assertThrows(ExcecaoDeDominio.class, () -> {
+            carro.informarId(id);
+        });
+
+        assertEquals("Não é possível informar um id vazio para um carro.", excecaoDeDominio.getMessage());
     }
 }

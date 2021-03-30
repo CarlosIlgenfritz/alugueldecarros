@@ -1,9 +1,9 @@
 package com.aluguelcarro.aluguel.portaadaptador.rest;
 
 
-import com.aluguelcarro.aluguel.apliacao.AlugarDto;
 import com.aluguelcarro.aluguel.apliacao.RealizaAluguel;
-import com.aluguelcarro.aluguel.apliacao.RespostaRealizaAluguelDto;
+import com.aluguelcarro.aluguel.apliacao.dtos.AlugarDto;
+import com.aluguelcarro.aluguel.apliacao.dtos.RespostaRealizaAluguelDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

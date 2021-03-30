@@ -1,4 +1,4 @@
-package com.aluguelcarro.aluguel.apliacao;
+package com.aluguelcarro.aluguel.apliacao.dtos;
 import java.time.LocalDate;
 
 public class AlugarDto {

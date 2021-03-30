@@ -1,5 +1,7 @@
 package com.aluguelcarro.aluguel.apliacao;
 
+import com.aluguelcarro.aluguel.apliacao.dtos.ClienteDto;
+import com.aluguelcarro.aluguel.apliacao.dtos.RespostaManipuladorClienteDto;
 import com.aluguelcarro.aluguel.dominio.Cliente;
 import com.aluguelcarro.aluguel.dominio.builder.ClienteBuilder;
 import com.aluguelcarro.aluguel.dominio.builder.ClienteDtoBuilder;
@@ -40,10 +42,10 @@ public class ManipuladorClienteTest {
         ClienteDto clienteDto = new ClienteDtoBuilder().criar();
         when(clienteRepositorio.save(Mockito.any())).thenReturn(new ClienteBuilder().criar());
 
-        RespostaManipuladorCliente respostaManipuladorCliente =
+        RespostaManipuladorClienteDto respostaManipuladorClienteDto =
                 manipuladorCliente.salvar(clienteDto);
 
-        assertEquals("Não foi possível salvar os dados do cliente.", respostaManipuladorCliente.mensagemDeResposta);
+        assertEquals("Não foi possível salvar os dados do cliente.", respostaManipuladorClienteDto.mensagemDeResposta);
     }
 
     @Test
@@ -51,10 +53,10 @@ public class ManipuladorClienteTest {
         ClienteDto clienteDto = new ClienteDtoBuilder().criar();
         Mockito.when(clienteRepositorio.save(Mockito.any())).thenReturn(new ClienteBuilder().comId(1L).criarComId());
 
-        RespostaManipuladorCliente respostaManipuladorCliente =
+        RespostaManipuladorClienteDto respostaManipuladorClienteDto =
                 manipuladorCliente.salvar(clienteDto);
 
-        assertEquals("Cliente salvo com sucesso!", respostaManipuladorCliente.mensagemDeResposta);
+        assertEquals("Cliente salvo com sucesso!", respostaManipuladorClienteDto.mensagemDeResposta);
     }
 
     @Test
@@ -78,11 +80,11 @@ public class ManipuladorClienteTest {
         ClienteDto clienteDto = new ClienteDtoBuilder().criar();
         when(clienteRepositorio.findById(clienteDto.id)).thenReturn(Optional.empty());
 
-        RespostaManipuladorCliente respostaManipuladorCliente =
+        RespostaManipuladorClienteDto respostaManipuladorClienteDto =
                 manipuladorCliente.atualizar(clienteDto);
 
         assertEquals("Não foi possível encontrar um cliente para atualizar.",
-                respostaManipuladorCliente.mensagemDeResposta);
+                respostaManipuladorClienteDto.mensagemDeResposta);
     }
 
     @Test
@@ -91,11 +93,11 @@ public class ManipuladorClienteTest {
         when(clienteRepositorio.findById(clienteDto.id)).thenReturn(Optional.ofNullable(
                 new ClienteBuilder().comId(1L).criarComId()));
 
-        RespostaManipuladorCliente respostaManipuladorCliente =
+        RespostaManipuladorClienteDto respostaManipuladorClienteDto =
                 manipuladorCliente.atualizar(clienteDto);
 
         assertEquals("Cliente atualizado com sucesso!",
-                respostaManipuladorCliente.mensagemDeResposta);
+                respostaManipuladorClienteDto.mensagemDeResposta);
     }
 
     @Test
@@ -113,10 +115,10 @@ public class ManipuladorClienteTest {
         ClienteDto clienteDto = new ClienteDtoBuilder().criar();
         when(clienteRepositorio.findById(clienteDto.id)).thenReturn(Optional.empty());
 
-        RespostaManipuladorCliente respostaManipuladorCliente =
+        RespostaManipuladorClienteDto respostaManipuladorClienteDto =
                 manipuladorCliente.deletar(clienteDto);
 
-        assertEquals("Não foi possível encontrar um cliente selecionado para deletar.", respostaManipuladorCliente.mensagemDeResposta);
+        assertEquals("Não foi possível encontrar um cliente selecionado para deletar.", respostaManipuladorClienteDto.mensagemDeResposta);
     }
 
     @Test
@@ -125,10 +127,10 @@ public class ManipuladorClienteTest {
         when(clienteRepositorio.findById(clienteDto.id)).thenReturn(Optional.ofNullable(new ClienteBuilder().comId(1L).criarComId()),
                 Optional.empty());
 
-        RespostaManipuladorCliente respostaManipuladorCliente =
+        RespostaManipuladorClienteDto respostaManipuladorClienteDto =
                 manipuladorCliente.deletar(clienteDto);
 
-        assertEquals("Cliente deletado com sucesso!", respostaManipuladorCliente.mensagemDeResposta);
+        assertEquals("Cliente deletado com sucesso!", respostaManipuladorClienteDto.mensagemDeResposta);
     }
 
     @Test
@@ -138,10 +140,10 @@ public class ManipuladorClienteTest {
                 .thenReturn(Optional.ofNullable(new ClienteBuilder().comId(1L).criarComId()),
                         Optional.ofNullable(new ClienteBuilder().comId(1L).criarComId()));
 
-        RespostaManipuladorCliente respostaManipuladorCliente =
+        RespostaManipuladorClienteDto respostaManipuladorClienteDto =
                 manipuladorCliente.deletar(clienteDto);
 
-        assertEquals("Não foi possível deletar o cliente selecionado.", respostaManipuladorCliente.mensagemDeResposta);
+        assertEquals("Não foi possível deletar o cliente selecionado.", respostaManipuladorClienteDto.mensagemDeResposta);
     }
 
 }

@@ -44,4 +44,9 @@ public class Carro {
         ExcecaoDeDominio.quandoTamanoDiferenteDeOnze(renavam, "O código renavam deve ter 11 digitos.");
         ExcecaoDeDominio.quandoValorMenorIgualZero(valorDiaria, "Não é possível criar um carro com valor da diária menor ou igual a zero.");
     }
+
+    public void informarId(Long id) {
+        ExcecaoDeDominio.quandoNulo(id, "Não é possível informar um id vazio para um carro.");
+        this.id = id;
+    }
 }

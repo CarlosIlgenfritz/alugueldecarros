@@ -1,5 +1,7 @@
 package com.aluguelcarro.aluguel.apliacao;
 
+import com.aluguelcarro.aluguel.apliacao.dtos.ClienteDto;
+import com.aluguelcarro.aluguel.apliacao.dtos.RespostaManipuladorClienteDto;
 import com.aluguelcarro.aluguel.dominio.Cliente;
 import com.aluguelcarro.aluguel.dominio.repositorios.ClienteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,24 +20,24 @@ public class ManipuladorCliente {
         this.clienteRepositorio = clienteRepositorio;
     }
 
-    public RespostaManipuladorCliente salvar(ClienteDto clienteDto) {
+    public RespostaManipuladorClienteDto salvar(ClienteDto clienteDto) {
         Cliente cliente = new Cliente(clienteDto.nomeCompleto, clienteDto.email, clienteDto.cpf);
 
         Cliente clienteSalvo = clienteRepositorio.save(cliente);
 
         if (clienteSalvo == null || clienteSalvo.getId() == null) {
-            return new RespostaManipuladorCliente("Não foi possível salvar os dados do cliente.");
+            return new RespostaManipuladorClienteDto("Não foi possível salvar os dados do cliente.");
         }
 
-        return new RespostaManipuladorCliente("Cliente salvo com sucesso!");
+        return new RespostaManipuladorClienteDto("Cliente salvo com sucesso!");
     }
 
-    public RespostaManipuladorCliente atualizar(ClienteDto clienteDto) {
+    public RespostaManipuladorClienteDto atualizar(ClienteDto clienteDto) {
 
         Optional<Cliente> clienteOptional = clienteRepositorio.findById(clienteDto.id);
 
         if(clienteOptional.isEmpty()){
-            return new RespostaManipuladorCliente("Não foi possível encontrar um cliente para atualizar.");
+            return new RespostaManipuladorClienteDto("Não foi possível encontrar um cliente para atualizar.");
         }
 
         Cliente clienteEncontrado = clienteOptional.get();
@@ -46,15 +48,15 @@ public class ManipuladorCliente {
 
         clienteRepositorio.save(clienteAtualizado);
 
-        return new RespostaManipuladorCliente("Cliente atualizado com sucesso!");
+        return new RespostaManipuladorClienteDto("Cliente atualizado com sucesso!");
     }
 
-    public RespostaManipuladorCliente deletar(ClienteDto clienteDto) {
+    public RespostaManipuladorClienteDto deletar(ClienteDto clienteDto) {
 
         Optional<Cliente> clienteOptional = clienteRepositorio.findById(clienteDto.id);
 
         if(clienteOptional.isEmpty()){
-            return new RespostaManipuladorCliente("Não foi possível encontrar um cliente selecionado para deletar.");
+            return new RespostaManipuladorClienteDto("Não foi possível encontrar um cliente selecionado para deletar.");
         }
 
         clienteRepositorio.delete(clienteOptional.get());
@@ -62,10 +64,10 @@ public class ManipuladorCliente {
         Optional<Cliente> clienteEncontrado = clienteRepositorio.findById(clienteDto.id);
 
         if(clienteEncontrado.isPresent()){
-            return new RespostaManipuladorCliente("Não foi possível deletar o cliente selecionado.");
+            return new RespostaManipuladorClienteDto("Não foi possível deletar o cliente selecionado.");
         }
 
-        return new RespostaManipuladorCliente("Cliente deletado com sucesso!");
+        return new RespostaManipuladorClienteDto("Cliente deletado com sucesso!");
     }
 
     public List<Cliente> buscarTodosOsclientes() {
