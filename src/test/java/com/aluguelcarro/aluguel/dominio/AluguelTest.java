@@ -16,7 +16,8 @@ class AluguelTest {
     private LocalDate dataFim;
     private Long cliente;
     private Long carro;
-    private  Faker faker;
+    private Faker faker;
+    private Double valorDoAluguel;
 
     @BeforeEach
     void init() {
@@ -25,17 +26,19 @@ class AluguelTest {
         dataFim = LocalDate.now().plusDays(2);
         cliente = faker.random().nextLong();
         carro = faker.random().nextLong();
+        valorDoAluguel = faker.number().randomDouble(1,2,10);
     }
 
     @Test
     void deve_instanciar_aluguel() {
 
-        Aluguel aluguel = new Aluguel(dataInicio, dataFim, cliente, carro);
+        Aluguel aluguel = new Aluguel(dataInicio, dataFim, cliente, carro, valorDoAluguel);
 
         assertEquals(dataInicio, aluguel.getDataInicio());
         assertEquals(dataFim, aluguel.getDataFim());
         assertEquals(cliente, aluguel.getClienteId());
         assertEquals(carro, aluguel.getCarroId());
+        assertEquals(valorDoAluguel, aluguel.getValorDoAluguel());
     }
 
     @Test
@@ -43,7 +46,7 @@ class AluguelTest {
         LocalDate dataInicio = null;
 
         ExcecaoDeDominio excecaoDeDominio = assertThrows(ExcecaoDeDominio.class, () -> {
-            new Aluguel(dataInicio, dataFim, cliente, carro);
+            new Aluguel(dataInicio, dataFim, cliente, carro, valorDoAluguel);
         });
 
         assertEquals("Não é possível criar um aluguel sem data de inicio.", excecaoDeDominio.getMessage());
@@ -54,7 +57,7 @@ class AluguelTest {
         LocalDate dataFim = null;
 
         ExcecaoDeDominio excecaoDeDominio = assertThrows(ExcecaoDeDominio.class, () -> {
-            new Aluguel(dataInicio, dataFim, cliente, carro);
+            new Aluguel(dataInicio, dataFim, cliente, carro, valorDoAluguel);
         });
 
         assertEquals("Não é possível criar um aluguel sem data final.", excecaoDeDominio.getMessage());
@@ -65,7 +68,7 @@ class AluguelTest {
         Long cliente = null;
 
         ExcecaoDeDominio excecaoDeDominio = assertThrows(ExcecaoDeDominio.class, () -> {
-            new Aluguel(dataInicio, dataFim, cliente, carro);
+            new Aluguel(dataInicio, dataFim, cliente, carro, valorDoAluguel);
         });
 
         assertEquals("Não é possível criar um aluguel sem um cliente.", excecaoDeDominio.getMessage());
@@ -76,7 +79,7 @@ class AluguelTest {
         Long carro = null;
 
         ExcecaoDeDominio excecaoDeDominio = assertThrows(ExcecaoDeDominio.class, () -> {
-            new Aluguel(dataInicio, dataFim, cliente, carro);
+            new Aluguel(dataInicio, dataFim, cliente, carro, valorDoAluguel);
         });
 
         assertEquals("Não é possível criar um aluguel sem um carro.", excecaoDeDominio.getMessage());
@@ -87,7 +90,7 @@ class AluguelTest {
         LocalDate dataInicio = LocalDate.now().minusDays(2);
 
         ExcecaoDeDominio excecaoDeDominio = assertThrows(ExcecaoDeDominio.class, () -> {
-            new Aluguel(dataInicio, dataFim, cliente, carro);
+            new Aluguel(dataInicio, dataFim, cliente, carro, valorDoAluguel);
         });
 
         assertEquals("Não é possível criar um aluguel com a data inicial menor que a data atual.", excecaoDeDominio.getMessage());
@@ -98,9 +101,31 @@ class AluguelTest {
         LocalDate dataFim = LocalDate.now().minusDays(2);
 
         ExcecaoDeDominio excecaoDeDominio = assertThrows(ExcecaoDeDominio.class, () -> {
-            new Aluguel(dataInicio, dataFim, cliente, carro);
+            new Aluguel(dataInicio, dataFim, cliente, carro, valorDoAluguel);
         });
 
         assertEquals("Não é possível criar um aluguel com a data inicial menor que a data atual.", excecaoDeDominio.getMessage());
+    }
+
+    @Test
+    void nao_deve_instanciar_aluguel_com_valor_do_aluguel_nulo() {
+        Double valorDoAluguel = null;
+
+        ExcecaoDeDominio excecaoDeDominio = assertThrows(ExcecaoDeDominio.class, () -> {
+            new Aluguel(dataInicio, dataFim, cliente, carro, valorDoAluguel);
+        });
+
+        assertEquals("Não é possível criar um aluguel com valor do aluguel vazio.", excecaoDeDominio.getMessage());
+    }
+
+    @Test
+    void nao_deve_instanciar_aluguel_com_valor_do_aluguel_igual_ou_menor_zero() {
+        Double valorDoAluguel = -2.0;
+
+        ExcecaoDeDominio excecaoDeDominio = assertThrows(ExcecaoDeDominio.class, () -> {
+            new Aluguel(dataInicio, dataFim, cliente, carro, valorDoAluguel);
+        });
+
+        assertEquals("Não é possível criar um aluguel com valor do aluguel igual ou menor que zero.", excecaoDeDominio.getMessage());
     }
 }

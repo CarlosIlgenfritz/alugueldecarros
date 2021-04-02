@@ -30,19 +30,27 @@ public class Aluguel {
     @Column
     private Long carroId;
 
-    public Aluguel(LocalDate dataInicio, LocalDate dataFim, Long clienteId, Long carroId) {
-        validarCamposObrigatorios(dataInicio, dataFim, clienteId, carroId);
+    @Column
+    private Double valorDoAluguel;
+
+    public Aluguel(LocalDate dataInicio, LocalDate dataFim, Long clienteId, Long carroId, Double valorDoAluguel) {
+        validarCamposObrigatorios(dataInicio, dataFim, clienteId, carroId, valorDoAluguel);
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.clienteId = clienteId;
         this.carroId = carroId;
+        this.valorDoAluguel = valorDoAluguel;
     }
 
-    private void validarCamposObrigatorios(LocalDate dataInicio, LocalDate dataFim, Long cliente, Long carro) {
+    private void validarCamposObrigatorios(LocalDate dataInicio, LocalDate dataFim, Long cliente, Long carro, Double
+                                           valorDoAluguel) {
         ExcecaoDeDominio.quandoNulo(dataInicio, "Não é possível criar um aluguel sem data de inicio.");
         ExcecaoDeDominio.quandoNulo(dataFim, "Não é possível criar um aluguel sem data final.");
         ExcecaoDeDominio.quandoNulo(cliente, "Não é possível criar um aluguel sem um cliente.");
         ExcecaoDeDominio.quandoNulo(carro, "Não é possível criar um aluguel sem um carro.");
+        ExcecaoDeDominio.quandoNulo(valorDoAluguel, "Não é possível criar um aluguel com valor do aluguel vazio.");
+        ExcecaoDeDominio.quandoValorMenorIgualZero(valorDoAluguel,
+                "Não é possível criar um aluguel com valor do aluguel igual ou menor que zero.");
         validarDatas(dataInicio, dataFim);
     }
 

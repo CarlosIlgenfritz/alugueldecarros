@@ -20,6 +20,7 @@ public class RealizaAluguel {
     private CarroRepositorio carroRepositorio;
     private AluguelRepositorio aluguelRepositorio;
 
+
     @Autowired
     public RealizaAluguel(ClienteRepositorio clienteRepositorio, CarroRepositorio carroRepositorio,
                           AluguelRepositorio aluguelRepositorio) {
@@ -39,7 +40,8 @@ public class RealizaAluguel {
             return new RespostaRealizaAluguelDto("Não foi possível encontrar o cliente escolhido.");
         }
 
-        Aluguel aluguel = new Aluguel(alugarDto.dataInicio, alugarDto.dataFim, alugarDto.clienteId, alugarDto.carroId);
+        Aluguel aluguel = new Aluguel(alugarDto.dataInicio, alugarDto.dataFim, alugarDto.clienteId, alugarDto.carroId,
+                alugarDto.valorDoAluguel);
 
         aluguelRepositorio.save(aluguel);
 

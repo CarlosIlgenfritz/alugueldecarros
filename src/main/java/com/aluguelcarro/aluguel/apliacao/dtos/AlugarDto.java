@@ -7,4 +7,5 @@ public class AlugarDto {
     public LocalDate dataFim;
     public Long clienteId;
     public Long carroId;
+    public Double valorDoAluguel;
 }

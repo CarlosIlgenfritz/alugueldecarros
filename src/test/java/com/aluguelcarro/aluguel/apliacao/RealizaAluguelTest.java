@@ -77,7 +77,7 @@ class RealizaAluguelTest {
         alugarDto.dataFim = LocalDate.now().plusDays(10);
         alugarDto.carroId = 1L;
         alugarDto.clienteId = 2L;
-
+        alugarDto.valorDoAluguel = faker.number().randomDouble(1, 1,10);
         return alugarDto;
     }
 
