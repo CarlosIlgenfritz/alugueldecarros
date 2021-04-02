@@ -1,6 +1,5 @@
 package com.aluguelcarro.aluguel.apliacao.cliente;
 
-import com.aluguelcarro.aluguel.apliacao.ManipuladorCliente;
 import com.aluguelcarro.aluguel.apliacao.dtos.ClienteDto;
 import com.aluguelcarro.aluguel.apliacao.dtos.RespostaManipuladorClienteDto;
 import com.aluguelcarro.aluguel.dominio.builder.ClienteBuilder;
@@ -12,9 +11,8 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
 
 class DeletaClienteTest {
 

@@ -1,8 +1,7 @@
 package com.aluguelcarro.aluguel.dominio;
 
 import com.aluguelcarro.aluguel.comun.dominio.ExcecaoDeDominio;
-import com.aluguelcarro.aluguel.dominio.builder.CarroBuilder;
-import com.aluguelcarro.aluguel.dominio.builder.ClienteBuilder;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,15 +14,17 @@ class AluguelTest {
 
     private LocalDate dataInicio;
     private LocalDate dataFim;
-    private Cliente cliente;
-    private Carro carro;
+    private Long cliente;
+    private Long carro;
+    private  Faker faker;
 
     @BeforeEach
     void init() {
+        faker = new Faker();
         dataInicio = LocalDate.now();
         dataFim = LocalDate.now().plusDays(2);
-        cliente = new ClienteBuilder().criar();
-        carro = new CarroBuilder().criar();
+        cliente = faker.random().nextLong();
+        carro = faker.random().nextLong();
     }
 
     @Test
@@ -33,8 +34,8 @@ class AluguelTest {
 
         assertEquals(dataInicio, aluguel.getDataInicio());
         assertEquals(dataFim, aluguel.getDataFim());
-        assertEquals(cliente, aluguel.getCliente());
-        assertEquals(carro, aluguel.getCarro());
+        assertEquals(cliente, aluguel.getClienteId());
+        assertEquals(carro, aluguel.getCarroId());
     }
 
     @Test
@@ -61,7 +62,7 @@ class AluguelTest {
 
     @Test
     void nao_deve_instanciar_aluguel_sem_um_cliente() {
-        Cliente cliente = null;
+        Long cliente = null;
 
         ExcecaoDeDominio excecaoDeDominio = assertThrows(ExcecaoDeDominio.class, () -> {
             new Aluguel(dataInicio, dataFim, cliente, carro);
@@ -72,7 +73,7 @@ class AluguelTest {
 
     @Test
     void nao_deve_instanciar_aluguel_sem_um_carro() {
-        Carro carro = null;
+        Long carro = null;
 
         ExcecaoDeDominio excecaoDeDominio = assertThrows(ExcecaoDeDominio.class, () -> {
             new Aluguel(dataInicio, dataFim, cliente, carro);

@@ -1,7 +1,6 @@
 package com.aluguelcarro.aluguel.apliacao.carro;
 
 import com.aluguelcarro.aluguel.dominio.Carro;
-import com.aluguelcarro.aluguel.dominio.Cliente;
 import com.aluguelcarro.aluguel.dominio.repositorios.CarroRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -24,23 +24,21 @@ public class Aluguel {
     @Column
     private LocalDate dataFim;
 
-    @OneToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    @Column
+    private Long clienteId;
 
-    @OneToOne
-    @JoinColumn(name = "carro_id")
-    private Carro carro;
+    @Column
+    private Long carroId;
 
-    public Aluguel(LocalDate dataInicio, LocalDate dataFim, Cliente cliente, Carro carro) {
-        validarCamposObrigatorios(dataInicio, dataFim, cliente, carro);
+    public Aluguel(LocalDate dataInicio, LocalDate dataFim, Long clienteId, Long carroId) {
+        validarCamposObrigatorios(dataInicio, dataFim, clienteId, carroId);
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
-        this.cliente = cliente;
-        this.carro = carro;
+        this.clienteId = clienteId;
+        this.carroId = carroId;
     }
 
-    private void validarCamposObrigatorios(LocalDate dataInicio, LocalDate dataFim, Cliente cliente, Carro carro) {
+    private void validarCamposObrigatorios(LocalDate dataInicio, LocalDate dataFim, Long cliente, Long carro) {
         ExcecaoDeDominio.quandoNulo(dataInicio, "Não é possível criar um aluguel sem data de inicio.");
         ExcecaoDeDominio.quandoNulo(dataFim, "Não é possível criar um aluguel sem data final.");
         ExcecaoDeDominio.quandoNulo(cliente, "Não é possível criar um aluguel sem um cliente.");

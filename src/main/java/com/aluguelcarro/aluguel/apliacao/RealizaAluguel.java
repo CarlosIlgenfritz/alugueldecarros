@@ -39,7 +39,7 @@ public class RealizaAluguel {
             return new RespostaRealizaAluguelDto("Não foi possível encontrar o cliente escolhido.");
         }
 
-        Aluguel aluguel = new Aluguel(alugarDto.dataInicio, alugarDto.dataFim, cliente.get(), carro.get());
+        Aluguel aluguel = new Aluguel(alugarDto.dataInicio, alugarDto.dataFim, alugarDto.clienteId, alugarDto.carroId);
 
         aluguelRepositorio.save(aluguel);
 
